@@ -51,18 +51,61 @@ movie-recommender/
 
 ### Instalación y Despliege
 
-1. Pre-requisitos
-  Python 3.9 o superior.
-  Docker y Docker Compose.
-  Cuenta de AWS.
+**1. Pre-requisitos**
+   Python 3.9 o superior.
+   Docker y Docker Compose.
+   Cuenta de AWS.
 
-2. Configuración de Entorno
-  Clona el repositorio e instala las dependencias:
+**2. Configuración de Entorno**
+   Clona el repositorio e instala las dependencias:
     git clone <url-del-repo>
     cd movie-recommender
     pip install -r requirements.txt
-  Configura tus credenciales de AWS en ~/.aws/credentials o exportando las variables de entorno.
+   Configura tus credenciales de AWS en ~/.aws/credentials o exportando las variables de entorno.
 
-3. Levantar Infraestructura (IaC)
-  Ejecuta el script para crear las colas SQS y generar el archivo .env automáticamente:
+**3. Levantar Infraestructura (IaC)**
+   Ejecuta el script para crear las colas SQS y generar el archivo .env automáticamente:
     python infrastructure/setup_aws.py
+
+**4. Levantar Base de Datos**
+   Inicia el contenedor de Neo4j:
+    docker-compose up -d
+   Panel de Neo4j disponible en: *http://localhost:7474* (User: neo4j / Pass: password123)
+
+### Ejecución del Pipeline
+Para ver el sistema completo en funcionamiento, abre 4 terminales:
+
+**Terminal 1: Quality Gate (El Guardián)**
+    python src/quality_gate/app.py
+**Terminal 2: Graph Ingester (El Escritor)**
+    python src/graph_ingestion/ingester.py
+**Terminal 3: Producer API (La Web)**
+    python src/producer/app.py
+**Terminal 4: Generación de Tráfico (Locust)**
+    locust -f tests/performance/locustfile.py
+Accede a *http://localhost:8089* para iniciar el ataque de usuarios simulados.
+
+### Testing y Calidad
+El proyecto incluye una suite de pruebas para asegurar la robustez:
+    **Tests de Integración**: Verifican que los esquemas de datos y la lógica de negocio se cumplan.
+        pytest tests/
+    **Tests de Rendimiento**: Usando Locust, simulamos miles de usuarios concurrentes para validar la escalabilidad de la arquitectura SQS.
+    **Métricas**: El Quality Gate expone métricas en http://localhost:8000 para ser consumidas por **Prometheus**.
+
+### Motor de Recomendación
+Para obtener recomendaciones basadas en el grafo construido en tiempo real:
+    python src/recommender/engine.py
+*Ejemplo de salida*:
+    RECOMENDACIONES TOP 5 para Usuario 123:
+    1. Toy Story 2 (Coincidencias: 45)
+    2. Monsters Inc. (Coincidencias: 38)
+
+### Tecnologías Utilizadas
+
+**Lenguaje**: Python 3.10
+**Cloud**: AWS SQS, AWS S3 (Boto3 SDK)
+**Database**: Neo4j (Graph Database)
+**API Framework**: Flask
+**Validation**: Pydantic
+**Observability**: Prometheus Client
+**CI/CD**: Github Actions
