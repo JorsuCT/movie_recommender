@@ -122,13 +122,13 @@ Accede a *http://localhost:8089* para iniciar el ataque de usuarios simulados.
 ### Testing y Calidad
 El proyecto incluye una suite de pruebas para asegurar la robustez:
 
-    **Tests de Integración**: Verifican que los esquemas de datos y la lógica de negocio se cumplan.
+   **Tests de Integración**: Verifican que los esquemas de datos y la lógica de negocio se cumplan.
     
         pytest tests/
     
-    **Tests de Rendimiento**: Usando Locust, simulamos miles de usuarios concurrentes para validar la escalabilidad de la arquitectura SQS.
+   **Tests de Rendimiento**: Usando Locust, simulamos miles de usuarios concurrentes para validar la escalabilidad de la arquitectura SQS.
    
-    **Métricas**: El Quality Gate expone métricas en http://localhost:8000 para ser consumidas por **Prometheus**.
+   **Métricas**: El Quality Gate expone métricas en http://localhost:8000 para ser consumidas por **Prometheus**.
 
 ### Motor de Recomendación
 Para obtener recomendaciones basadas en el grafo construido en tiempo real:
