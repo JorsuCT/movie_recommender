@@ -1,0 +1,27 @@
+AWS & Cloud 
+boto3==1.28.63           SDK oficial de AWS para Python
+python-dotenv==1.0.0     Para leer el archivo .env
+
+Base de Datos 
+neo4j==5.13.0            Driver oficial de Neo4j para Python
+
+API & Web (Producer)
+Flask==3.0.0             Framework web ligero para la API
+Werkzeug==3.0.0          Dependencia de Flask
+
+Validación & Datos 
+pydantic==2.4.2          Validación estricta de esquemas (Quality Gate)
+pandas==2.1.1            Manipulación de datos (ETL / Loaders)
+numpy==1.26.0            Cálculos numéricos (necesario para Pandas)
+
+Monitorización
+prometheus-client==0.17.1 Servidor de métricas para Prometheus
+
+Testing & Calidad
+pytest==7.4.2            Framework de testing unitario/integración
+pytest-cov==4.1.0        Reporte de cobertura de código (JaCoCo alternativa)
+locust==2.18.0           Pruebas de carga y estrés
+flake8==6.1.0            Linter para verificar estilo de código
+
+Opcionales útiles
+requests==2.31.0         Para hacer peticiones HTTP simples
