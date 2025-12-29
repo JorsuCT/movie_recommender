@@ -60,6 +60,10 @@ movie-recommender/
 
 ├── docker-compose.yml   # Orquestación local (Neo4j)
 
+├── config               # Configuración de AWS
+
+├── credentials          # Credenciales para conectarse a AWS
+
 └── requirements.txt     # Dependencias
 
 ### Instalación y Despliege
