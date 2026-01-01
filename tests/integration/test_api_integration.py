@@ -46,7 +46,7 @@ def test_flujo_completo_api_a_sqs():
     response = client.post("/rate", json=payload)
     
     assert response.status_code == 200
-    assert response.json() == {"status": "ok"}
+    assert response.json() == {"status": "ok", "message": "Rating enviado"}
 
     time.sleep(1)
     mensajes = sqs.receive_message(QueueUrl=SQS_URL, MaxNumberOfMessages=1, WaitTimeSeconds=2)
