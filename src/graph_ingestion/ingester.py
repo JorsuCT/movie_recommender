@@ -7,13 +7,20 @@ from dotenv import load_dotenv
 load_dotenv()
 CLEAN_URL = os.getenv('MOVIE-QUEUE-CLEAN_URL')
 
-NEO_URI = "bolt://127.0.0.1:7687"
+NEO_URI = "bolt://localhost:7687"
 NEO_AUTH = ("neo4j", "TSCD2025") 
 
 if not CLEAN_URL:
     raise Exception("ERROR: No se encuentra MOVIE-QUEUE-CLEAN_URL en .env")
 
-sqs = boto3.client('sqs', region_name = 'us-east-1')
+#sqs = boto3.client('sqs', region_name = 'us-east-1')
+sqs = boto3.client(
+        'sqs',
+        region_name='us-east-1',
+        endpoint_url='http://localhost:4566',  # <--- ¡ESTA LÍNEA ES VITAL!
+        aws_access_key_id='test',              # Necesario para LocalStack
+        aws_secret_access_key='test'           # Necesario para LocalStack
+    )
 
 driver = GraphDatabase.driver(NEO_URI, auth = NEO_AUTH, encrypted = False)
 

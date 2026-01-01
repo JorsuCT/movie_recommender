@@ -12,7 +12,14 @@ SQS_URL = os.getenv('MOVIE-QUEUE-RAW_URL')
 if not SQS_URL:
     raise Exception("ERROR: No se encuentra MOVIE-QUEUE-RAW_URL en el archivo .env")
 
-sqs = boto3.client('sqs', region_name='us-east-1')
+#sqs = boto3.client('sqs', region_name='us-east-1')
+sqs = boto3.client(
+        'sqs',
+        region_name='us-east-1',
+        endpoint_url='http://localhost:4566',  # <--- ¡ESTA LÍNEA ES VITAL!
+        aws_access_key_id='test',              # Necesario para LocalStack
+        aws_secret_access_key='test'           # Necesario para LocalStack
+    )
 
 def generar_datos_prueba():
     print(f"--- SIMULADOR DE USUARIOS ---")
