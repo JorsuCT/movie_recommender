@@ -16,21 +16,20 @@ CLEAN_URL = os.getenv('MOVIE-QUEUE-CLEAN_URL')
 DLQ_URL = os.getenv('MOVIE-QUEUE-DLQ_URL')
 BUCKET_NAME = os.getenv('DATALAKE_BUCKET', 'movie-datalake')
 
-#sqs = boto3.client('sqs', region_name='us-east-1')
 sqs = boto3.client(
         'sqs',
         region_name='us-east-1',
-        endpoint_url='http://localhost:4566',  # <--- ¡ESTA LÍNEA ES VITAL!
-        aws_access_key_id='test',              # Necesario para LocalStack
-        aws_secret_access_key='test'           # Necesario para LocalStack
+        endpoint_url='http://localhost:4566',
+        aws_access_key_id='test',
+        aws_secret_access_key='test'
     )
 
 s3 = boto3.client(
         's3',
         region_name='us-east-1',
-        endpoint_url='http://localhost:4566',  # <--- ¡ESTA LÍNEA ES VITAL!
-        aws_access_key_id='test',              # Necesario para LocalStack
-        aws_secret_access_key='test'           # Necesario para LocalStack
+        endpoint_url='http://localhost:4566',
+        aws_access_key_id='test',
+        aws_secret_access_key='test'
     )
 
 def guardar_datalake(data):

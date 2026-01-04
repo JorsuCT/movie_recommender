@@ -17,10 +17,10 @@ services:
     image: localstack/localstack:latest
     container_name: movie_aws_sim
     ports:
-      - "4566:4566"            # Puerto principal para SQS
+      - "4566:4566"
     environment:
-      - SERVICES=sqs,s3           # Solo activamos SQS para ahorrar memoria
+      - SERVICES=sqs,s3
       - DEBUG=1
       - DOCKER_HOST=unix:///var/run/docker.sock
     volumes:
-      - "./localstack_data:/var/lib/localstack" # Persistencia (opcional)
+      - "./localstack_data:/var/lib/localstack"

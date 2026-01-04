@@ -103,7 +103,21 @@ movie-recommender/
    Panel de Neo4j disponible en: *http://localhost:7474* (User: neo4j / Pass: password123)
 
 ### Ejecución del Pipeline
-Para ver el sistema completo en funcionamiento, abre 4 terminales:
+Para ver el sistema completo en funcionamiento, sigue estos 3 pasos:
+
+**Paso 1: Levantar Infraestructura (Docker)**
+
+    docker-compose up -d
+
+**Paso 2: Configurar Colas y Variables de Entorno**
+    
+    python infrastructure/setup_infrastructure.py
+
+**Paso 3: Carga Inicial de Datos (Batch Layer)**
+    
+    python loader.py
+
+Tras ello se inician 4 terminales:
 
 **Terminal 1: Quality Gate (El Guardián)**
 

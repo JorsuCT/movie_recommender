@@ -1,7 +1,6 @@
 import boto3
 import sys
 
-# Nombres de las colas que necesitamos
 QUEUE_NAMES = [
     "movie-queue-raw",
     "movie-queue-clean",
@@ -13,7 +12,6 @@ BUCKET_NAME = "movie-datalake"
 def setup_infrastructure():
     print("INICIANDO DESPLIEGUE DE INFRAESTRUCTURA AWS")
     
-    # Cliente de SQS
     try:
         sqs = boto3.client('sqs', region_name='us-east-1', endpoint_url='http://localhost:4566', aws_access_key_id='test', aws_secret_access_key='test')
         s3 = boto3.client('s3', region_name='us-east-1', endpoint_url='http://localhost:4566', aws_access_key_id='test', aws_secret_access_key='test')
