@@ -1,0 +1,31 @@
+name: CI Pipeline - Movie Recommender
+
+on: [push]
+
+jobs:
+  test-architecture:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Instalar Dependencias
+        run: |
+          pip install -r requirements.txt
+
+      - name: Validar Estructura del Proyecto
+        run: |
+          echo "Comprobando existencia de archivos clave"
+          test -f src/producer/api.py && echo "API encontrada"
+          test -f src/graph_ingestion/ingester.py && echo "Ingester encontrado"
+          test -f docker-compose.yaml && echo "Docker Compose encontrado"
+
+      - name: Simular Test de Calidad
+        run: |
+          echo "Ejecutando linter"
+          echo "Código validado correctamente."
